@@ -30,7 +30,7 @@
                 jobs[i] = (difficulty[i], profit[i]);
             }           
 
-            Array.Sort(jobs, (a, b) => a.Item1 - b.Item1);           
+            Array.Sort(jobs);//Array.Sort(jobs, (a, b) => a.Item1 - b.Item1);           
             Array.Sort(worker);
 
             int ans = 0, j = 0, best = 0;

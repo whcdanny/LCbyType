@@ -31,7 +31,7 @@ public int maximumProduct(int[] nums, int k) {
         long mod = (long)1e9 + 7;
         int n = nums.length;
 
-        Queue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         for(int x : nums) {
             pq.offer(x);

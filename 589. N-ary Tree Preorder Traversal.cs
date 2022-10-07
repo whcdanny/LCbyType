@@ -1,5 +1,23 @@
 589. N-ary Tree Preorder Traversal		
-//C#		
+//C#	
+	/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public IList<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val,IList<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+}
+*/
 		public List<int> preorder(Node root)
         {
             List<int> preorderTraversal = new List<int>();

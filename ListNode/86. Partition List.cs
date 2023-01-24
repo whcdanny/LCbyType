@@ -1,4 +1,4 @@
-//86：给一个list，然后给x节点，将比这个x节点小的数放在新的ListNode并把剩下的接在后面
+//86：给一个list，然后给x节点，将比这个x节点小的数放在新的ListNode并把剩下的接在后面 med
 //思路：做两个ListNode，然后合并；
 		public ListNode Partition(ListNode head, int x)
         {

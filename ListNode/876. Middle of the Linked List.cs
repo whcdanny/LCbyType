@@ -1,4 +1,4 @@
-//876. Middle of the Linked List
+//876. Middle of the Linked List ez
 //思路：用快慢针，slow走一步，fast走两步，说白了就是nx2=长度；		
 		public ListNode MiddleNode(ListNode head)
         {

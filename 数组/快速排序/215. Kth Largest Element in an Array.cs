@@ -1,81 +1,34 @@
-//912. Sort an Array med
-//给一个不规律数组，让你从小到大排序
-//思路：类似二叉树的二分法，将整个二分一直二分到个位，然后进行排序，然后进行合并，合并时用到双指针
-		class Merge
-        {
-
-            // 用于辅助合并有序数组
-            private static int[] temp;
-
-            public static void sort(int[] nums)
+//215. Kth Largest Element in an Array med
+//找出所给的乱序数组中 倒数第k个大的；
+//思路：快速选择算法，找倒数第k个就是找正数nums.Length - K；所以根据快速排序的逻辑，选出的数的位置左边都是小于这个数，反之右边都是大于的；然后将这个得到的位置跟我们要找的nums.Length - K去比较；
+		public int FindKthLargest(int[] nums, int k)
+        {                        
+            int lo = 0, hi = nums.Length - 1;
+            // 转化成「排名第 k 的元素」
+            k = nums.Length - k;
+            while (lo <= hi)
             {
-                // 先给辅助数组开辟内存空间
-                temp = new int[nums.Length];
-                // 排序整个数组（原地修改）
-                sort(nums, 0, nums.Length - 1);
-            }
-
-            // 定义：将子数组 nums[lo..hi] 进行排序
-            private static void sort(int[] nums, int lo, int hi)
-            {
-                if (lo == hi)
+                // 在 nums[lo..hi] 中选一个分界点
+                int p = Quick.partition(nums, lo, hi);
+                if (p < k)
                 {
-                    // 单个元素不用排序
-                    return;
+                    // 第 k 大的元素在 nums[p+1..hi] 中
+                    lo = p + 1;
                 }
-                // 这样写是为了防止溢出，效果等同于 (hi + lo) / 2
-                int mid = lo + (hi - lo) / 2;
-                // 先对左半部分数组 nums[lo..mid] 排序
-                sort(nums, lo, mid);
-                // 再对右半部分数组 nums[mid+1..hi] 排序
-                sort(nums, mid + 1, hi);
-                // 将两部分有序数组合并成一个有序数组
-                merge(nums, lo, mid, hi);
-            }
-
-            // 将 nums[lo..mid] 和 nums[mid+1..hi] 这两个有序数组合并成一个有序数组
-            private static void merge(int[] nums, int lo, int mid, int hi)
-            {
-                // 先把 nums[lo..hi] 复制到辅助数组中
-                // 以便合并后的结果能够直接存入 nums
-                for (int k = lo; k <= hi; k++)
+                else if (p > k)
                 {
-                    temp[k] = nums[k];
+                    // 第 k 大的元素在 nums[lo..p-1] 中
+                    hi = p - 1;
                 }
-
-                // 数组双指针技巧，合并两个有序数组
-                int i = lo, j = mid + 1;
-                for (int p = lo; p <= hi; p++)
+                else
                 {
-                    if (i == mid + 1)
-                    {
-                        // 左半边数组已全部被合并
-                        nums[p] = temp[j++];
-                    }
-                    else if (j == hi + 1)
-                    {
-                        // 右半边数组已全部被合并
-                        nums[p] = temp[i++];
-                    }
-                    else if (temp[i] > temp[j])
-                    {
-                        nums[p] = temp[j++];
-                    }
-                    else
-                    {
-                        nums[p] = temp[i++];
-                    }
+                    // 找到第 k 大元素
+                    return nums[p];
                 }
             }
-        }
-
-        public int[] SortArray(int[] nums)
-        {
-            Merge.sort(nums);
-            return nums;
+            return -1;
         }
 		
-//快速排序方法：根据选出来的数，通过搜索和比较大小来switch得到左边全部小于，右边全部大于，这样就找到了分割数，然后再递归；		
 		class Quick
         {
 
@@ -156,9 +109,4 @@
                 nums[i] = nums[j];
                 nums[j] = temp;
             }
-        }
-        public int[] SortArray(int[] nums)
-        {
-            Quick.sort(nums);
-            return nums;
         }

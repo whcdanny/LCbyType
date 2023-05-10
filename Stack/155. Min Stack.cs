@@ -6,7 +6,7 @@ void push(int val) pushes the element val onto the stack.
 void pop() removes the element on the top of the stack.
 int top() gets the top element of the stack.
 int getMin() retrieves the minimum element in the stack.*/
-/思路：给两个stack一个存每一个数，一个只存每个时刻的最小值，这样保证minStack的最上面总是当前最小的数；
+//思路：给两个stack一个存每一个数，一个只存每个时刻的最小值，这样保证minStack的最上面总是当前最小的数；
         public class MinStack
         {
 

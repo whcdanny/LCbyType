@@ -1,29 +1,36 @@
-//5. Longest Palindromic Substring med
-//给一个字符串，找出最长的palindromic
-//思路：用左右针 这次从中间开始往两边延展，因为长度奇偶，所以为了保险要找i和i+1位置的
-public static string LongestPalindrome(string s)
+//Leetcode 5. Longest Palindromic Substring med
+//题意：找出一个字符串中最长的回文子串
+//思路：从每个字符开始，向两边扩展，分别处理奇数长度和偶数长度的回文串。
+//时间复杂度:  n 是字符串的长度, 时间复杂度是 O(n^2)。
+//空间复杂度： O(1)          
+        public string LongestPalindrome_5(string s)
         {
-            string res = "";
+            if (s == null || s.Length < 1) return "";
+
+            int start = 0;
+            int end = 0;
+
             for (int i = 0; i < s.Length; i++)
             {
-                // 以 s[i] 为中心的最长回文子串
-                string s1 = palindrome(s, i, i);
-                // 以 s[i] 和 s[i+1] 为中心的最长回文子串
-                string s2 = palindrome(s, i, i + 1);                
-                res = res.Length > s1.Length ? res : s1;
-                res = res.Length > s2.Length ? res : s2;
+                int len1 = ExpandAroundCenter(s, i, i);
+                int len2 = ExpandAroundCenter(s, i, i + 1);
+                int len = Math.Max(len1, len2);
+                if (len > end - start)
+                {
+                    start = i - (len - 1) / 2;
+                    end = i + len / 2;
+                }
             }
-            return res;
+
+            return s.Substring(start, end - start + 1);
         }
-        public static string palindrome(string s, int l, int r)
+
+        private int ExpandAroundCenter(string s, int left, int right)
         {
-            // 防止索引越界
-            while (l >= 0 && r < s.Length
-                    && s[l] == s[r])
+            while (left >= 0 && right < s.Length && s[left] == s[right])
             {
-                // 双指针，向两边展开
-                l--; r++;
+                left--;
+                right++;
             }
-            // 返回以 s[l] 和 s[r] 为中心的最长回文串
-            return s.Substring(l+1, r - l-1);//C#的substring是（起始位置，长度） Java的substring（起点，终点）
+            return right - left - 1;
         }

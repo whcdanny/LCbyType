@@ -1,8 +1,6 @@
-//Leetcode 150. Evaluate Reverse Polish Notation med
+//150. Evaluate Reverse Polish Notation med
 //给一个stringlist，然后根据给的数字和'+', '-', '*', and '/' 来得到最后的答案；
 //思路：用stack来存数，然后每一次出现运算符的时候，从stack最上面两个的数来做算法；
-//时间复杂度：n 是表达式的长度，O(n)。
-//空间复杂度：n 是表达式的长度，O(n)
         public int EvalRPN(string[] tokens)
         {
             if (tokens == null)

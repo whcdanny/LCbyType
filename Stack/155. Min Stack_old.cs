@@ -1,4 +1,4 @@
-//Leetcode 155. Min Stack med
+//155. Min Stack med
 //根据要求写一个Min Stack
 /*
 MinStack() initializes the stack object.
@@ -7,8 +7,6 @@ void pop() removes the element on the top of the stack.
 int top() gets the top element of the stack.
 int getMin() retrieves the minimum element in the stack.*/
 //思路：给两个stack一个存每一个数，一个只存每个时刻的最小值，这样保证minStack的最上面总是当前最小的数；
-//时间复杂度：push、pop、top 和 getMin 操作的时间复杂度都是 O(1)。
-//空间复杂度：O(n)
         public class MinStack
         {
 
@@ -47,3 +45,12 @@ int getMin() retrieves the minimum element in the stack.*/
                 return minStack.Peek();
             }
         }
+
+        /**
+         * Your MinStack object will be instantiated and called as such:
+         * MinStack obj = new MinStack();
+         * obj.Push(x);
+         * obj.Pop();
+         * int param_3 = obj.Top();
+         * int param_4 = obj.GetMin();
+         */

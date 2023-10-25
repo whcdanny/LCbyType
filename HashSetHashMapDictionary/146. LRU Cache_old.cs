@@ -1,59 +1,7 @@
-//Leetcode 146. LRU Cache med
-//题意：设计并实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作：获取数据 get 和写入数据 put。
-//get(key) - 如果密钥 key 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。
-//put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新数据值留出空间。
-//思路：LRU Cache需要在常数时间内完成 get 和 put 操作。使用哈希表（HashMap）来存储键值对，并且使用双向链表来维护最近访问的顺序。
-//时间复杂度：get 操作的时间复杂度是 O(1)。 put 操作的时间复杂度是 O(1)。
-//空间复杂度：O(capacity)
-        public class LRUCache
-        {
-            private Dictionary<int, LinkedListNode<(int, int)>> keyToNode;
-            private LinkedList<(int, int)> cache;
-            private int capacity;
-
-            public LRUCache(int capacity)
-            {
-                this.capacity = capacity;
-                keyToNode = new Dictionary<int, LinkedListNode<(int, int)>>();
-                cache = new LinkedList<(int, int)>();
-            }
-
-            public int Get(int key)
-            {
-                if (keyToNode.TryGetValue(key, out var node))
-                {
-                    cache.Remove(node);
-                    cache.AddFirst(node);
-                    return node.Value.Item2;
-                }
-                return -1;
-            }
-
-            public void Put(int key, int value)
-            {
-                if (keyToNode.TryGetValue(key, out var node))
-                {
-                    cache.Remove(node);
-                    cache.AddFirst((key, value));
-                    keyToNode[key] = cache.First;
-                }
-                else
-                {
-                    if (cache.Count >= capacity)
-                    {
-                        var last = cache.Last;
-                        cache.RemoveLast();
-                        keyToNode.Remove(last.Value.Item1);
-                    }
-                    cache.AddFirst((key, value));
-                    keyToNode[key] = cache.First;
-                }
-            }
-        }
-        //146. LRU Cache med
-        //按要求写Least Recently Used (LRU) cache.
-        //思路：要让 put 和 get 方法的时间复杂度为 O(1)；LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体；这里我们用自创的doublelist，因为C#没有LinkedHashMap；这个双向连表明尾部为最近使用，因为我们要考虑到容量，满了就要删掉不常用的也就是双向连的头部； 因为是双向链，所以当年添加在尾部的时候不仅要明确添加的prev和next，也要把尾部的prev和next明确；
-        class DoubleListNode
+//146. LRU Cache med
+//按要求写Least Recently Used (LRU) cache.
+//思路：要让 put 和 get 方法的时间复杂度为 O(1)；LRU 缓存算法的核心数据结构就是哈希链表，双向链表和哈希表的结合体；这里我们用自创的doublelist，因为C#没有LinkedHashMap；这个双向连表明尾部为最近使用，因为我们要考虑到容量，满了就要删掉不常用的也就是双向连的头部； 因为是双向链，所以当年添加在尾部的时候不仅要明确添加的prev和next，也要把尾部的prev和next明确；
+		class DoubleListNode
         {
             public int key, val;
             public DoubleListNode next, prev;
@@ -113,14 +61,14 @@
             public int Size() { return size; }
 
         }
-        public class LRUCache_old
+        public class LRUCache
         {
             private Dictionary<int, DoubleListNode> map;
             // Node(k1, v1) <-> Node(k2, v2)...
             private DoubleList cache;
             // 最大容量
             private int cap;
-            public LRUCache_old(int capacity)
+            public LRUCache(int capacity)
             {
                 this.cap = capacity;
                 map = new Dictionary<int, DoubleListNode>();

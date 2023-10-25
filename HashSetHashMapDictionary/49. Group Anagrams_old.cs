@@ -1,8 +1,6 @@
-//Leetcode 49. Group Anagrams med
-//题意：给定一个字符串数组，将字母异位词组合在一起。
-//思路：遍历字符串数组，对于每个字符串，将其按照字母排序，得到一个唯一的键。使用哈希表，以排序后的键作为键，将相应的字符串添加到对应的列表中
-//时间复杂度：遍历字符串数组需要 O(nmlog(m)) 的时间，其中 n 是字符串数组的长度，m 是字符串的平均长度。
-//空间复杂度：O(n*m)
+//49. Group Anagrams med
+//要求对给定的字符串数组进行分组，使得具有相同字母构成的字符串归为一组
+//思路：给一个dictionary来存，每一个词输入后，将其拆分成charlist然后排序然如果dictionary没有就添加，有就再已有的list里加入这个词；
         public IList<IList<string>> GroupAnagrams(string[] strs)
         {
             Dictionary<string, List<string>> map = new Dictionary<string, List<string>>();

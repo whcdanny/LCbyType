@@ -1,40 +1,35 @@
-//Leetcode 23. Merge K Sorted Lists hard
-//题意：给定 k 个已排序的链表，将它们合并成一个新的已排序链表
-//思路：优先队列（Min-Heap）。我们可以将每个链表的头节点放入优先队列中，根据节点的值进行比较。然后，我们从队列中取出最小节点，并将其加入结果链表。
-//时间复杂度：假设每个链表的平均长度为 n，一共有 k 个链表。那么总共有 k*n 个节点。建堆的时间复杂度是 O(k* logk)，每次插入和删除元素的时间复杂度是 O(logk)，总共有 k*n 次操作，因此总时间复杂度是 O(k* n*logk)
+//Leetcode 347. Top k Largest Elements med
+//题意：给定一个整数数组 nums，找出其中最大的 k 个元素。
+//思路：一种常用的解决方法是使用最小堆（Min-Heap）。首先，我们将前 k 个元素插入最小堆中。然后，对于剩下的元素，如果比堆顶元素大，就将堆顶元素出堆，将新元素插入堆中。最终，堆中的元素就是前 k 大的元素。
+//时间复杂度：建堆的时间复杂度是 O(k)，每次插入和删除元素的时间复杂度是 O(logk)，总共有 n-k 次操作，因此总时间复杂度是 O(k + (n-k)logk)，约化为 O(nlogk)
 //空间复杂度：O(k) 
-        public ListNode MergeKLists(ListNode[] lists)
+        public int[] TopKFrequent(int[] nums, int k)
         {
-            // 创建一个最小堆，并根据节点的值进行比较
-            var minHeap = new PriorityQueue<ListNode>((a, b) => a.val.CompareTo(b.val));
-
-            // 将所有链表的头节点加入最小堆
-            foreach (var list in lists)
+            Dictionary<int, int> frequency = new Dictionary<int, int>();
+            foreach (var num in nums)
             {
-                if (list != null)
-                {
-                    minHeap.Enqueue(list);
-                }
+                if (frequency.ContainsKey(num))
+                    frequency[num]++;
+                else
+                    frequency[num] = 1;
             }
 
-            // 创建一个哑节点作为结果链表的头节点
-            var dummy = new ListNode(0);
-            var current = dummy;
+            PriorityQueue<int> minHeap = new PriorityQueue<int>((a, b) => frequency[a] - frequency[b]);
 
-            // 不断从最小堆中取出最小节点，并将该节点的下一个节点加入最小堆
-            while (minHeap.Count > 0)
+            foreach (var num in frequency.Keys)
             {
-                var node = minHeap.Dequeue();
-                current.next = node;
-                current = current.next;
-
-                if (node.next != null)
-                {
-                    minHeap.Enqueue(node.next);
-                }
+                minHeap.Enqueue(num);
+                if (minHeap.Count > k)
+                    minHeap.Dequeue();
             }
 
-            return dummy.next;
+            int[] result = new int[k];
+            for (int i = k - 1; i >= 0; i--)
+            {
+                result[i] = minHeap.Dequeue();
+            }
+
+            return result;
         }
 		public class PriorityQueue<T>
         {

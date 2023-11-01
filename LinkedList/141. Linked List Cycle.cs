@@ -1,22 +1,19 @@
-//141. Linked List Cycle ez
-//检查是否有cycle
-//思路：快慢针，快针是慢针的两倍，这样，肯定会碰撞；
-		public bool hasCycle(ListNode head)
+//Leetcode 141. Linked List Cycle ez
+//题意：要求判断给定的链表是否存在环
+//思路：快慢指针：使用两个指针，一个慢指针（slow）和一个快指针（fast）。
+//时间复杂度：O(n)，其中n是链表的长度。
+//空间复杂度：O(1)，因为只使用了两个指针
+        public bool HasCycle(ListNode head)
         {
-            // 快慢指针初始化指向 head
             ListNode slow = head, fast = head;
-            // 快指针走到末尾时停止
             while (fast != null && fast.next != null)
             {
-                // 慢指针走一步，快指针走两步
                 slow = slow.next;
                 fast = fast.next.next;
-                // 快慢指针相遇，说明含有环
                 if (slow == fast)
                 {
                     return true;
                 }
             }
-            // 不包含环
             return false;
         }

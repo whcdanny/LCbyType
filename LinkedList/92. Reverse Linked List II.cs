@@ -1,65 +1,35 @@
-//92. Reverse Linked List II med
-//反转指定两个位置之间的链表
-//思路： 与206 一样 只不过这次给的left和right的位置的下一个要思考一下
-//第二个的方法是第一个的优化 暂时没看懂
-		public ListNode ReverseBetween(ListNode head, int left, int right)
+//Leetcode 92. Reverse Linked List II med
+//题意：要求将链表中从位置 m 到 n 的节点反转
+//思路：迭代的方法解决, 逻辑是反转前的node为pre这个是不变的，变的是pre.next；然后反转一开始的位置相对应的cur也不变，因为我们要一直把他挪到n位置，这里唯一一直在变的就是next，因为我们需要把m到n之间的数倒转，这样他们的next.next就一直在一个位置一个位置的根据迭代在改变；
+//时间复杂度：O(n)，其中n是链表的长度。
+//空间复杂度：O(1)，因为只使用了两个指针
+        public ListNode ReverseBetween(ListNode head, int left, int right)
         {
-            if (head == null)
-                return null;
-            ListNode res = new ListNode(-1);
-            res.next = head;
-            ListNode preNode = res;
-            int count = 1;
-            while(res.next!=null && count < left)
+            if (head == null || left >= right)
             {
-                preNode = preNode.next;
-                count++;
-            }
-            if (count < left)
                 return head;
-            ListNode start = preNode.next;
-            ListNode cur = preNode.next;
-            ListNode next = cur.next;
-            ListNode temp = new ListNode(-1);
-            while (cur != null && count < right)
-            {
-                temp = next.next;
-                next.next = cur;
-                cur = next;
-                next = temp;
-                count++;
             }
-            preNode.next = cur;
-            start.next = next;            
-            return res.next;
-        }
-		
-		public ListNode ReverseBetween(ListNode head, int left, int right)
-        {
-            if (head == null)
-                return null;
-            ListNode res = new ListNode(-1);
-            res.next = head;
-            ListNode preNode = res;
-            int count = 1;
-            while(res.next!=null && count < left)
+
+            ListNode dummy = new ListNode(-1);
+            dummy.next = head;
+            ListNode prev = dummy;
+
+            for (int i = 1; i < left; i++)
             {
-                preNode = preNode.next;
-                count++;
+                prev = prev.next;
             }
-            if (count < left)
-                return head;            
-            ListNode mNode = preNode.next;
-            ListNode cur = mNode.next;
-            ListNode temp = new ListNode(-1);
-            while (cur != null && count < right)
+
+            ListNode current = prev.next;
+            ListNode next = current.next;
+
+            for (int i = 0; i < right - left; i++)
             {
-                temp = cur.next;
-                cur.next = preNode.next;
-                preNode.next = cur;
-                mNode.next = temp;
-                cur = temp;
-                count++;
+                current.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+                next = current.next;
             }
-            return res.next;
+
+            return dummy.next;
+
         }

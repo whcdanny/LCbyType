@@ -1,10 +1,8 @@
-//Leetcode 160. Intersection of Two Linked Lists ez
-//题意：要求找到给定链表的中间节点。        
+//160. Intersection of Two Linked Lists ez
 //思路： 类似找闭环的交点，
-//第一种：p1 走一步，如果走到 A 链表末尾，转到 B 链表； p2 走一步，如果走到 B 链表末尾，转到 A 链表；直到找到是否有交点
-//时间复杂度: (m + n)，其中m和n分别是两个链表的长度
-//空间复杂度：该方法的空间复杂度是O(1)
-        public ListNode getIntersectionNode(ListNode headA, ListNode headB)
+//第一种：p1 走一步，如果走到 A 链表末尾，转到 B 链表； p2 走一步，如果走到 B 链表末尾，转到 A 链表；
+//直到找到是否有交点
+		public ListNode getIntersectionNode(ListNode headA, ListNode headB)
         {
             // p1 指向 A 链表头结点，p2 指向 B 链表头结点
             ListNode p1 = headA, p2 = headB;
@@ -19,10 +17,9 @@
             }
             return p1;
         }
-//第二种：先算出A,B的长度，然后让 p1 和 p2 到达尾部的距离相同，	看两个指针是否会相同	
-//时间复杂度: (m + n)，其中m和n分别是两个链表的长度
-//空间复杂度：该方法的空间复杂度是O(1)
-        public ListNode getIntersectionNode1(ListNode headA, ListNode headB)
+//第二种：先算出A,B的长度，然后让 p1 和 p2 到达尾部的距离相同，	
+//看两个指针是否会相同	
+		public ListNode getIntersectionNode1(ListNode headA, ListNode headB)
         {
             int lenA = 0, lenB = 0;
             ListNode p1 = headA;

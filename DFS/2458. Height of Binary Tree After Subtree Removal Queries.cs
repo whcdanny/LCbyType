@@ -1,4 +1,4 @@
-//Leetcode 2467. Most Profitable Path in a Tree med
+//Leetcode 2458. Height of Binary Tree After Subtree Removal Queries hard
 //题意：给定一个具有n个节点的二叉树的根节点。每个节点从1到n都被分配了一个唯一的值。还给定一个大小为m的数组queries。对树执行m个独立的查询，其中在第i个查询中，执行以下操作：
 //从以值queries[i] 为根的子树中删除节点。保证queries[i] 不等于根的值。返回一个大小为m的数组answer，其中answer[i] 是执行第i个查询后树的高度。
 //注：查询是独立的，因此每个查询后树都恢复到初始状态。树的高度是从根到树中某个节点的最长简单路径中的边数。

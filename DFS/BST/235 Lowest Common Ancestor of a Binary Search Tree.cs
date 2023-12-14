@@ -18,3 +18,18 @@
                 return root;
             }
         }
+public TreeNode LowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q)
+{
+    if (root.val > p.val && root.val > q.val)
+    {
+        return LowestCommonAncestor1(root.left, p, q);
+    }
+    else if (root.val < p.val && root.val < q.val)
+    {
+        return LowestCommonAncestor1(root.right, p, q);
+    }
+    else
+    {
+        return root;
+    }
+}

@@ -1,0 +1,40 @@
+//Leetcode 2781. Length of the Longest Valid Substring hard
+//题意：给定一个字符串 word 和一个字符串数组 forbidden。
+//如果一个字符串的所有子串都不包含在 forbidden 中，则称其为有效字符串。
+//要求返回字符串 word 的最长有效子串的长度。
+//思路：hashtable + 窗 + 左右针, 用hashset存入forbidden确保没有重复的，
+//然后left和right都从头开始，然后k从right往回寻找，为了找到在left和right区间内是否存在forbidden内的word
+//如果存在left=k+1，将left移动至k+1的位置，此时暂时left到right没有forbidden的word
+//然后找出最大的；
+//时间复杂度：O(n^2)
+//空间复杂度：O(n)
+        public int LongestValidSubstring(string word, IList<string> forbidden)
+        {
+            int ans = 0;
+            HashSet<string> hs = new HashSet<string>(forbidden);
+
+            int left = 0;
+            for (int right = 0; right < word.Length; right++)
+            {
+                for (int k = right; k >= left; k--)
+                {
+                    //避免超时；
+                    if (right - k + 1 > 10)
+                    {
+                        break;
+                    }
+
+                    string str = word.Substring(k, right - k + 1);
+
+                    if (hs.Contains(str))
+                    {
+                        left = k + 1;
+                        break;
+                    }
+                }
+
+                ans = Math.Max(ans, right - left + 1);
+            }
+
+            return ans;
+        }

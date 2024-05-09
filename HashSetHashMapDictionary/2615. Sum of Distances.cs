@@ -42,3 +42,40 @@
 
             return result;
         }
+		
+		 //思路：hashtable,基本逻辑是 对于sum[i] = sum{|num[j] - numx[i]|} j=0,1,...n-1;
+        //那么sum[i+1] = sum + (i+1)*d - (m-i-1)*d, 这里d = |arr[i+1]-arr[i]|
+        //由此可见，只要找到每个相同数字的1第一个位置sum[0]，那么后面的都可以根据这个来找出；
+        //所以先用dictionary找出所有数字的位置，然后根据上面的规则，先找到当前相同数字的第一个位置sum[0]，然后找到剩下的，
+        //这样结果的当前位置的答案就算这个res[list[0]] = sum;
+        public long[] Distance1(int[] nums)
+        {
+            int n = nums.Length;
+            Dictionary<int, List<int>> map = new Dictionary<int, List<int>>();
+            for(int i = 0; i < n; i++)
+            {
+                if (!map.ContainsKey(nums[i]))
+                    map[nums[i]] = new List<int>();
+                map[nums[i]].Add(i); 
+            }
+            long[] res = new long[n];
+            foreach (KeyValuePair<int, List<int>> kv in map)
+            {
+                List<int> list = kv.Value;
+                int m = list.Count;
+                long sum = 0;
+                foreach(int x in list)
+                {
+                    sum += Math.Abs(x - list[0]);
+                }
+                res[list[0]] = sum;
+
+                for(int i = 0; i+1 < m; i++)
+                {
+                    int d = list[i + 1] - list[i];
+                    sum += (i + 1) * d - (m - i - 1) * d;
+                    res[list[i + 1]] = sum;
+                }
+            }
+            return res;
+        }
